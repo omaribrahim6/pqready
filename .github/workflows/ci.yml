@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: pytest -q
+
+  lab:
+    # Spins up the four-endpoint Nginx lab and checks every grade end to end.
+    # The client side runs on Alpine too: reading the ML-DSA certificate needs
+    # OpenSSL 3.5, and the runner's own Python links OpenSSL 3.0.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate lab PKI inside an OpenSSL 3.5 container
+        run: docker run --rm -v "$PWD/lab:/lab" -w /lab alpine:3.22 sh -c "apk add -q bash openssl && bash gen-certs.sh"
+      - run: docker compose -f lab/compose.yml up -d
+      - name: Lab tests and a CI gate, from an OpenSSL 3.5 client
+        run: |
+          docker run --rm --network host -v "$PWD:/src" -w /src python:3.13-alpine3.22 sh -c '
+            set -e
+            apk add -q openssl
+            python -c "import ssl; print(ssl.OPENSSL_VERSION)"
+            pip install -q -e ".[dev]"
+            PQREADY_LAB=1 pytest -q -m lab
+            pqready --connect 127.0.0.1 --cafile lab/certs/lab-ca-bundle.pem hybrid.lab:8445 fullpq.lab:8446 --fail-under A
+          '
