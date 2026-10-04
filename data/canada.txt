@@ -1,0 +1,32 @@
+# Canadian critical services, October 2026 snapshot
+
+# federal and provincial government
+canada.ca
+cyber.gc.ca
+cse-cst.gc.ca
+ontario.ca
+quebec.ca
+ottawa.ca
+toronto.ca
+
+# big six banks and Desjardins
+rbc.com
+td.com
+scotiabank.com
+bmo.com
+cibc.com
+nbc.ca
+desjardins.com
+
+# telecom
+bell.ca
+rogers.com
+telus.com
+
+# universities
+carleton.ca
+uottawa.ca
+utoronto.ca
+uwaterloo.ca
+mcgill.ca
+ubc.ca

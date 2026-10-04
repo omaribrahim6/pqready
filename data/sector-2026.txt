@@ -1,0 +1,22 @@
+# SecTor 2026 exhibitors on the target list (public homepages only)
+cyber.gc.ca
+cira.ca
+trendmicro.com
+packetlabs.net
+canarytrap.com
+horizon3.ai
+hackerone.com
+thalesgroup.com
+digicert.com
+entrust.com
+appviewx.com
+microsoft.com
+crowdstrike.com
+wiz.io
+cloudflare.com
+fortinet.com
+arcticwolf.com
+esentire.com
+elastic.co
+crypto4a.com
+paloaltonetworks.com

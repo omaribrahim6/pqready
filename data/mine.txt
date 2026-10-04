@@ -1,0 +1,6 @@
+# Sites I run (Cloudflare-proxied, origin on my VPS)
+omaribrahim.me
+uomsa.ca
+empowerorphans.com
+cumsa.ca
+astrali.tech
